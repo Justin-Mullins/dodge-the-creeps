@@ -23,17 +23,17 @@ func _process(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
-	if velocity.length() > 0: 
+	if velocity.length() > 0:
 		# keeps velocity constant while moving
-		velocity = velocity.normalized() * speed 
-		$AnimatedSprite.play() 
+		velocity = velocity.normalized() * speed
+		$AnimatedSprite.play()
 		# $ returns node at relative path from current node or returns null
 	else:
 		$AnimatedSprite.stop()
 	# delta is the time it took for the previous frame to complete.
 	position += velocity * delta
 	# These clamps will prevent the player from leaving the edge of the screen.
-	position.x = clamp(position.x, 0, screen_size.x) 
+	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
 
 	if velocity.x != 0: # if the player is moving horizontally
@@ -45,7 +45,7 @@ func _process(delta):
 		$AnimatedSprite.flip_v = velocity.y > 0
 
 
-func _on_Player_body_entered(body):
+func _on_Player_body_entered(_body):
 	hide()	 # Player dissapears after being hit.
 	emit_signal("hit")	# When an enemy hits the player, the hit signal is emitted
 	$CollisionShape2D.set_deferred("disabled", true) # set_deferred waits to act until its safe
